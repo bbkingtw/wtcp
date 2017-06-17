@@ -1,0 +1,9 @@
+form
+  textarea(name="cmd")
+  button exec
+h2 err
+pre=err
+h2 stdout
+pre=stdout
+h2 stderr
+pre=stderr

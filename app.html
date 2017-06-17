@@ -1,0 +1,37 @@
+
+<!doctype html>  
+<html lang="en">  
+    <head>
+
+    </head>
+    <body>
+			<div id="content"></div>
+			<textarea id="content"></textarea>
+			<input id="chat_input" type="text">
+			<button id="send">send</button>
+         <script src="/jquery/dist/jquery.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </body>
+</html>  
+
+<script>  
+ $(function(){
+   var socket = io.connect('http://localhost:8989');
+
+		$('button#send').click(function(e){
+			e.preventDefault()
+			var v=$('#chat_input').val()
+			socket.emit('cmd', v);
+		});
+
+   socket.on('connect', function(data) {
+      	socket.emit('cmd', 'Hello World from client');
+   });
+
+	 socket.on('message',function(data){
+		  var element=$('<pre />').text(data)
+			$(element).appendTo($('div#content'))
+  		$('textarea').append(" "+data+'\n');
+   });
+ });
+</script> 
